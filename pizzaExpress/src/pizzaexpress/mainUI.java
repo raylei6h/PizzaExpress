@@ -8,6 +8,8 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,10 +24,13 @@ public class mainUI extends javax.swing.JFrame {
     /**
      * Creates new form mainUI
      */
+    
     public mainUI() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
     boolean a = false;
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,10 +58,7 @@ public class mainUI extends javax.swing.JFrame {
         settingsButton = new javax.swing.JLabel();
         menuhide = new javax.swing.JPanel();
         dashboard = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jImg = new javax.swing.JLabel();
-        cPlate = new javax.swing.JToggleButton();
-        tDough = new javax.swing.JToggleButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -222,43 +224,10 @@ public class mainUI extends javax.swing.JFrame {
 
         dashboard.setBackground(new java.awt.Color(242, 187, 5));
 
-        jPanel1.setBackground(new java.awt.Color(242, 187, 5));
-        jPanel1.setMaximumSize(new java.awt.Dimension(400, 400));
-
-        jImg.setMaximumSize(new java.awt.Dimension(0, 0));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 582, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(293, 293, 293)
-                    .addComponent(jImg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(289, Short.MAX_VALUE)))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 418, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(210, 210, 210)
-                    .addComponent(jImg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(208, Short.MAX_VALUE)))
-        );
-
-        cPlate.setText("New / Remove Plate");
-        cPlate.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("Beta");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cPlateActionPerformed(evt);
-            }
-        });
-
-        tDough.setText("Dough");
-        tDough.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tDoughActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -267,26 +236,16 @@ public class mainUI extends javax.swing.JFrame {
         dashboardLayout.setHorizontalGroup(
             dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dashboardLayout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(90, Short.MAX_VALUE))
-            .addGroup(dashboardLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(cPlate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(tDough, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(104, 104, 104))
+                .addGap(308, 308, 308)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(339, Short.MAX_VALUE))
         );
         dashboardLayout.setVerticalGroup(
             dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dashboardLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cPlate, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tDough, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addGap(205, 205, 205)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(276, Short.MAX_VALUE))
         );
 
         getContentPane().add(dashboard, java.awt.BorderLayout.CENTER);
@@ -388,21 +347,12 @@ public class mainUI extends javax.swing.JFrame {
     colorChange(settingmenuline, new Color(215,78,9));
     }//GEN-LAST:event_settingsButtonMouseExited
 
-    private void cPlateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cPlateActionPerformed
-    if(cPlate.isSelected()){
-        cPlate.setText("Remove Plate");
-        jImg.setIcon(new ImageIcon(getClass().getResource("/Icons/Pan.png")));
-        
-    }else{
-        cPlate.setText("New Plate");
-        jImg.setIcon(new ImageIcon(getClass().getResource("")));
-        
-    }
-    }//GEN-LAST:event_cPlateActionPerformed
-
-    private void tDoughActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tDoughActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tDoughActionPerformed
+    PizzaShop PiFrame = new PizzaShop();
+    PiFrame.show();
+    dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -441,7 +391,6 @@ public class mainUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel MenuIcon;
-    private javax.swing.JToggleButton cPlate;
     private javax.swing.JLabel close;
     private javax.swing.JPanel closeButton;
     private javax.swing.JPanel dashboard;
@@ -450,8 +399,7 @@ public class mainUI extends javax.swing.JFrame {
     private javax.swing.JPanel hideMenu;
     private javax.swing.JPanel hidemenuline;
     private javax.swing.JPanel icominmaxclose;
-    private javax.swing.JLabel jImg;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel max;
     private javax.swing.JPanel maxButton;
@@ -461,6 +409,5 @@ public class mainUI extends javax.swing.JFrame {
     private javax.swing.JPanel settingMenu;
     private javax.swing.JPanel settingmenuline;
     private javax.swing.JLabel settingsButton;
-    private javax.swing.JToggleButton tDough;
     // End of variables declaration//GEN-END:variables
 }
