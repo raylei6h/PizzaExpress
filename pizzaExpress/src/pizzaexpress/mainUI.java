@@ -4,14 +4,26 @@
  */
 package pizzaexpress;
 
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -20,7 +32,12 @@ import javax.swing.SwingUtilities;
  * @author 63961
  */
 public class mainUI extends javax.swing.JFrame {
-
+    Connection con;
+    ResultSet rs;
+    PreparedStatement pst;
+    Statement st;
+    private String[] Flavor = {"Pepperoni", "Sicilian", "Veggie", "Margherita", "Cheese"};
+    private String dorder;
     /**
      * Creates new form mainUI
      */
@@ -28,8 +45,11 @@ public class mainUI extends javax.swing.JFrame {
     public mainUI() {
         initComponents();
         this.setLocationRelativeTo(null);
+        
     }
     boolean a = false;
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,6 +79,12 @@ public class mainUI extends javax.swing.JFrame {
         menuhide = new javax.swing.JPanel();
         dashboard = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        UsernameF = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        PasswordF = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -215,7 +241,7 @@ public class mainUI extends javax.swing.JFrame {
         );
         menuhideLayout.setVerticalGroup(
             menuhideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 555, Short.MAX_VALUE)
+            .addGap(0, 480, Short.MAX_VALUE)
         );
 
         menu.add(menuhide, java.awt.BorderLayout.CENTER);
@@ -224,28 +250,86 @@ public class mainUI extends javax.swing.JFrame {
 
         dashboard.setBackground(new java.awt.Color(242, 187, 5));
 
-        jButton1.setText("Beta");
+        jButton1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jButton1.setText("Login");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
+        UsernameF.setFont(new java.awt.Font("Mongolian Baiti", 0, 18)); // NOI18N
+        UsernameF.setText("Username");
+
+        jPanel5.setBackground(new java.awt.Color(215, 78, 9));
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzaexpress/user.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+        );
+
+        jPanel10.setBackground(new java.awt.Color(215, 78, 9));
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzaexpress/pass.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+        );
+
+        PasswordF.setFont(new java.awt.Font("Mongolian Baiti", 0, 18)); // NOI18N
+        PasswordF.setToolTipText("Password");
+
         javax.swing.GroupLayout dashboardLayout = new javax.swing.GroupLayout(dashboard);
         dashboard.setLayout(dashboardLayout);
         dashboardLayout.setHorizontalGroup(
             dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dashboardLayout.createSequentialGroup()
-                .addGap(308, 308, 308)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(339, Short.MAX_VALUE))
+                .addGap(24, 24, 24)
+                .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(dashboardLayout.createSequentialGroup()
+                        .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(UsernameF, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
+                            .addComponent(PasswordF))
+                        .addContainerGap(55, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dashboardLayout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         dashboardLayout.setVerticalGroup(
             dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dashboardLayout.createSequentialGroup()
-                .addGap(205, 205, 205)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(276, Short.MAX_VALUE))
+                .addGap(288, 288, 288)
+                .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(UsernameF)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(PasswordF))
+                .addGap(12, 12, 12)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         getContentPane().add(dashboard, java.awt.BorderLayout.CENTER);
@@ -349,11 +433,33 @@ public class mainUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+    String UN = UsernameF.getText();
+    String PW = PasswordF.getText();
+    String driver = "com.mysql.cj.jdbc.Driver";
+        try {
+            Class.forName(driver);
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pizzaexpress","satio","satio@12345");
+            pst = con.prepareStatement("select Username, Password from account where Username=? and Password = ?");
+            pst.setString(1, UN);
+            pst.setString(2, PW);
+            rs = pst.executeQuery();
+            if(rs.next()){
     PizzaShop PiFrame = new PizzaShop();
     PiFrame.show();
     dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    JOptionPane.showMessageDialog(jButton1, "Welcome admin.");
+            }else{
+            JOptionPane.showMessageDialog(jButton1, "Wrong password/info.");   
+            }
 
+    
+            } catch (SQLException e){
+            System.out.println(e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(mainUI.class.getName()).log(Level.SEVERE, null, ex);
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+    }
     /**
      * @param args the command line arguments
      */
@@ -380,7 +486,6 @@ public class mainUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(mainUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -391,6 +496,8 @@ public class mainUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel MenuIcon;
+    private javax.swing.JPasswordField PasswordF;
+    private javax.swing.JTextField UsernameF;
     private javax.swing.JLabel close;
     private javax.swing.JPanel closeButton;
     private javax.swing.JPanel dashboard;
@@ -400,7 +507,11 @@ public class mainUI extends javax.swing.JFrame {
     private javax.swing.JPanel hidemenuline;
     private javax.swing.JPanel icominmaxclose;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel max;
     private javax.swing.JPanel maxButton;
     private javax.swing.JPanel menu;
