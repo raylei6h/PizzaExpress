@@ -31,7 +31,7 @@ import javax.swing.SwingUtilities;
  *
  * @author 63961
  */
-public class mainUI extends javax.swing.JFrame {
+public class AdminFrame extends javax.swing.JFrame {
     Connection con;
     ResultSet rs;
     PreparedStatement pst;
@@ -42,7 +42,7 @@ public class mainUI extends javax.swing.JFrame {
      * Creates new form mainUI
      */
     
-    public mainUI() {
+    public AdminFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
         
@@ -76,14 +76,10 @@ public class mainUI extends javax.swing.JFrame {
         settingMenu = new javax.swing.JPanel();
         menuhide = new javax.swing.JPanel();
         dashboard = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        UsernameF = new javax.swing.JTextField();
-        jPanel5 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        RefreshButton = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        PasswordF = new javax.swing.JPasswordField();
-        roles = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -217,99 +213,77 @@ public class mainUI extends javax.swing.JFrame {
 
         dashboard.setBackground(new java.awt.Color(242, 187, 5));
 
-        jButton1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jButton1.setText("Login");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Name", "Address", "Contact_No", "Email", "Flavor", "Size", "Price", "Order_Status"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        RefreshButton.setBackground(new java.awt.Color(215, 78, 9));
+        RefreshButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RefreshButtonMouseClicked(evt);
             }
         });
 
-        UsernameF.setFont(new java.awt.Font("Mongolian Baiti", 0, 18)); // NOI18N
-        UsernameF.setText("Username");
-
-        jPanel5.setBackground(new java.awt.Color(215, 78, 9));
-
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzaexpress/user.png"))); // NOI18N
+        jLabel1.setText("Refresh");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel1MouseExited(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+        javax.swing.GroupLayout RefreshButtonLayout = new javax.swing.GroupLayout(RefreshButton);
+        RefreshButton.setLayout(RefreshButtonLayout);
+        RefreshButtonLayout.setHorizontalGroup(
+            RefreshButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(RefreshButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+        RefreshButtonLayout.setVerticalGroup(
+            RefreshButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+            .addGroup(RefreshButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
         );
-
-        jPanel10.setBackground(new java.awt.Color(215, 78, 9));
-
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pizzaexpress/pass.png"))); // NOI18N
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
-
-        PasswordF.setFont(new java.awt.Font("Mongolian Baiti", 0, 18)); // NOI18N
-        PasswordF.setToolTipText("Password");
-
-        roles.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
-        roles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "delivery" }));
 
         javax.swing.GroupLayout dashboardLayout = new javax.swing.GroupLayout(dashboard);
         dashboard.setLayout(dashboardLayout);
         dashboardLayout.setHorizontalGroup(
             dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dashboardLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(45, 45, 45)
                 .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(dashboardLayout.createSequentialGroup()
-                        .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(UsernameF, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
-                            .addComponent(PasswordF))
-                        .addGap(0, 49, Short.MAX_VALUE))
-                    .addGroup(dashboardLayout.createSequentialGroup()
-                        .addComponent(roles, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                    .addComponent(RefreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 710, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         dashboardLayout.setVerticalGroup(
             dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dashboardLayout.createSequentialGroup()
-                .addGap(288, 288, 288)
-                .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(UsernameF)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(PasswordF))
-                .addGroup(dashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(dashboardLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(dashboardLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(roles)))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addGap(119, 119, 119)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(RefreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
 
-        getContentPane().add(dashboard, java.awt.BorderLayout.CENTER);
+        getContentPane().add(dashboard, java.awt.BorderLayout.LINE_END);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -353,16 +327,15 @@ public class mainUI extends javax.swing.JFrame {
     }//GEN-LAST:event_closeMouseEntered
 
     private void closeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseExited
-
-        colorChange(closeButton, new Color(215,78,9));
+       colorChange(closeButton, new Color(215,78,9));
     }//GEN-LAST:event_closeMouseExited
 
     private void maxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_maxMouseClicked
-        if(this.getExtendedState() != mainUI.MAXIMIZED_BOTH){
-            this.setExtendedState(mainUI.MAXIMIZED_BOTH);
+        if(this.getExtendedState() != AdminFrame.MAXIMIZED_BOTH){
+            this.setExtendedState(AdminFrame.MAXIMIZED_BOTH);
         }
         else{
-            this.setExtendedState(mainUI.NORMAL);
+            this.setExtendedState(AdminFrame.NORMAL);
         }
     }//GEN-LAST:event_maxMouseClicked
 
@@ -374,54 +347,25 @@ public class mainUI extends javax.swing.JFrame {
         colorChange(maxButton, new Color(215,78,9));
     }//GEN-LAST:event_maxMouseExited
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void RefreshButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RefreshButtonMouseClicked
         // TODO add your handling code here:
-       
-    String UN = UsernameF.getText();
-    String PW = PasswordF.getText();
-    String role = roles.getSelectedItem().toString();
-    String driver = "com.mysql.cj.jdbc.Driver";
-        try {
-            Class.forName(driver);
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pizzaexpress","satio","satio@12345");
-            
-            pst = con.prepareStatement("select Username, Password, Role from account where Username=? and Password = ?");
-            pst.setString(1, UN);
-            pst.setString(2, PW);
-            
-            rs = pst.executeQuery();
-            
-            if(rs.next()){
-                String s1 = rs.getString("Role");
-                String s2 = rs.getString("Username");
-                if(role.equalsIgnoreCase("Admin")&& s1.equalsIgnoreCase("admin")){
-                    
-                    AdminFrame aFrame = new AdminFrame();
-                    aFrame.setVisible(true);
-                    dispose();
-                    JOptionPane.showMessageDialog(jButton1, "Welcome admin.");
-                }
-                if(role.equalsIgnoreCase("Delivery")&& s1.equalsIgnoreCase("delivery")){
-                    
-                    userFrame uFrame = new userFrame();
-                    uFrame.setVisible(true);
-                    dispose();
-                    JOptionPane.showMessageDialog(jButton1, "Welcome Delivery Rider.");
-                }
-            
-    
-            }else{
-            JOptionPane.showMessageDialog(jButton1, "Wrong password/info.");   
-            }
+        
+    }//GEN-LAST:event_RefreshButtonMouseClicked
 
-    
-            } catch (SQLException e){
-            System.out.println(e.getMessage());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(mainUI.class.getName()).log(Level.SEVERE, null, ex);
-        }   
-    }//GEN-LAST:event_jButton1ActionPerformed
-   
+    private void jLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseEntered
+        // TODO add your handling code here:
+        colorChange(RefreshButton, new Color(240,240,201));
+    }//GEN-LAST:event_jLabel1MouseEntered
+
+    private void jLabel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseExited
+        // TODO add your handling code here:
+        colorChange(RefreshButton, new Color(215,78,9));
+    }//GEN-LAST:event_jLabel1MouseExited
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        // TODO add your handling code here:
+                                                                                      
+    }
     
     /**
      * @param args the command line arguments
@@ -440,27 +384,26 @@ public class mainUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(mainUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(mainUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(mainUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(mainUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new mainUI().setVisible(true);
+                new AdminFrame().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel MenuIcon;
-    private javax.swing.JPasswordField PasswordF;
-    private javax.swing.JTextField UsernameF;
+    private javax.swing.JPanel RefreshButton;
     private javax.swing.JLabel close;
     private javax.swing.JPanel closeButton;
     private javax.swing.JPanel dashboard;
@@ -468,18 +411,15 @@ public class mainUI extends javax.swing.JFrame {
     private javax.swing.JPanel hideMenu;
     private javax.swing.JPanel hidemenuline;
     private javax.swing.JPanel icominmaxclose;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel max;
     private javax.swing.JPanel maxButton;
     private javax.swing.JPanel menu;
     private javax.swing.JPanel menuhide;
     private javax.swing.JPanel minButton;
-    private javax.swing.JComboBox<String> roles;
     private javax.swing.JPanel settingMenu;
     private javax.swing.JPanel settingmenuline;
     // End of variables declaration//GEN-END:variables
