@@ -26,6 +26,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -215,10 +216,7 @@ public class AdminFrame extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Name", "Address", "Contact_No", "Email", "Flavor", "Size", "Price", "Order_Status"
@@ -239,6 +237,9 @@ public class AdminFrame extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Refresh");
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabel1MouseEntered(evt);
             }
@@ -349,7 +350,35 @@ public class AdminFrame extends javax.swing.JFrame {
 
     private void RefreshButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RefreshButtonMouseClicked
         // TODO add your handling code here:
-        
+        String driver = "com.mysql.cj.jdbc.Driver";
+        try{
+            Class.forName(driver);
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pizzaexpress","satio","satio@12345");
+            Statement sts = con.createStatement();
+            String SQL = "select * from pizzatables";
+            ResultSet rs = sts.executeQuery(SQL);
+            
+            while(rs.next()){
+                String name = rs.getString("Name");
+                String address = rs.getString("Address");
+                String contact = rs.getString("Contact_No");
+                String email = rs.getString("Email");
+                String flavor = rs.getString("Flavor");
+                String size = rs.getString("Size");
+                String price = rs.getString("Price");
+                String status = rs.getString("Order_Status");
+                
+                String tbDATA[] = {name,address,contact,email,flavor,size,price,status};
+                DefaultTableModel tblModel = (DefaultTableModel)jTable1.getModel();
+                
+                tblModel.addRow(tbDATA);
+                        
+            }
+            con.close();
+            
+        }catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+        }
     }//GEN-LAST:event_RefreshButtonMouseClicked
 
     private void jLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseEntered
@@ -361,6 +390,39 @@ public class AdminFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         colorChange(RefreshButton, new Color(215,78,9));
     }//GEN-LAST:event_jLabel1MouseExited
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        // TODO add your handling code here:
+        String driver = "com.mysql.cj.jdbc.Driver";
+        try{
+            Class.forName(driver);
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pizzaexpress","satio","satio@12345");
+            Statement sts = con.createStatement();
+            String SQL = "select * from pizzatables";
+            ResultSet rst = sts.executeQuery(SQL);
+            
+            while(rst.next()){
+                String name = rst.getString("Name");
+                String address = rst.getString("Address");
+                String contact = rst.getString("Contact_No");
+                String email = rst.getString("Email");
+                String flavor = rst.getString("Flavor");
+                String size = rst.getString("Size");
+                String price = rst.getString("Price");
+                String status = rst.getString("Order_Status");
+                
+                String tbDATA[] = {name,address,contact,email,flavor,size,price,status};
+                DefaultTableModel tblModel = (DefaultTableModel)jTable1.getModel();
+                
+                tblModel.addRow(tbDATA);
+                        
+            }
+            con.close();
+            
+        }catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
